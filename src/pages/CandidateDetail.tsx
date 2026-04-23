@@ -1,7 +1,8 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Mail, Calendar, Clock, CheckCircle2, RotateCw, FileText, Image as ImageIcon, ArrowRight, Check, PauseCircle, X } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { candidates, stageBadgeClass } from "@/lib/data";
+import { toast } from "sonner";
 
 function ScoreDonut({ value }: { value: number }) {
   const r = 56;
