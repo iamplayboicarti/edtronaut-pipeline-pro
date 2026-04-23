@@ -25,7 +25,14 @@ export const candidates: Candidate[] = [
   { id: "lan-phuong",  name: "Lan Phuong",  email: "lan.phuong@talentpool.vn",  role: "Business Analyst",  score: 91, stage: "Shortlisted",     competencies: { taskAccuracy: 93, softSkills: 88, speed: 90, communication: 92 } },
   { id: "thanh-nam",   name: "Thanh Nam",   email: "thanh.nam@talentpool.vn",   role: "Marketing Analyst", score: 63, stage: "Sim Sent",        competencies: { taskAccuracy: 65, softSkills: 60, speed: 64, communication: 62 } },
   { id: "bao-ngoc",    name: "Bao Ngoc",    email: "bao.ngoc@talentpool.vn",    role: "CRM Coordinator",   score: 77, stage: "Awaiting Review", competencies: { taskAccuracy: 79, softSkills: 74, speed: 76, communication: 78 } },
+  { id: "quang-minh",  name: "Quang Minh",  email: "quang.minh@talentpool.vn",  role: "Business Analyst",  score: 88, stage: "Interviewed",     competencies: { taskAccuracy: 90, softSkills: 84, speed: 86, communication: 89 } },
+  { id: "phuong-mai",  name: "Phuong Mai",  email: "phuong.mai@talentpool.vn",  role: "Marketing Analyst", score: 95, stage: "Offered",         competencies: { taskAccuracy: 96, softSkills: 92, speed: 94, communication: 97 } },
+  { id: "hoang-long",  name: "Hoang Long",  email: "hoang.long@talentpool.vn",  role: "CRM Coordinator",   score: 52, stage: "Sim Completed",   competencies: { taskAccuracy: 54, softSkills: 48, speed: 56, communication: 50 } },
 ];
+
+export const ROLES: Role[] = ["Business Analyst", "Marketing Analyst", "CRM Coordinator"];
+export const STAGES: Stage[] = ["Sim Sent", "Sim Completed", "Awaiting Review", "Shortlisted", "Interviewed", "Offered"];
+export const SIM_STATUS = ["Any", "Not started", "In progress", "Completed"] as const;
 
 export const funnelStages = [
   { label: "Applied",       count: 248, color: "funnel-1" as const },

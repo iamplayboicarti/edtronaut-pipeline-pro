@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Briefcase, Users, Cpu, BarChart3, Settings, Bell, Rocket } from "lucide-react";
+import { LayoutDashboard, Briefcase, Users, Cpu, BarChart3, Settings, Bell, Rocket, AlertTriangle, UserCheck, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { to: "/",            icon: LayoutDashboard, label: "Dashboard" },
@@ -71,10 +72,38 @@ function Header({ title }: { title: string }) {
         {title}
       </h1>
       <div className="flex items-center gap-3">
-        <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
-          <Bell className="h-[18px] w-[18px]" />
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-danger ring-2 ring-card" />
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus:outline-none">
+            <Bell className="h-[18px] w-[18px]" />
+            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-danger ring-2 ring-card" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-80 p-0">
+            <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
+              <span className="text-sm font-semibold">Notifications</span>
+              <span className="rounded bg-primary-soft px-1.5 py-0.5 text-[10px] font-semibold text-accent-foreground">3 new</span>
+            </div>
+            <div className="max-h-80 overflow-auto py-1">
+              {[
+                { icon: AlertTriangle, color: "text-warning bg-warning-soft", title: "3 candidates awaiting review", time: "5 min ago" },
+                { icon: UserCheck,     color: "text-success bg-success-soft", title: "Lan Phuong moved to Interviewed", time: "1 h ago" },
+                { icon: Send,          color: "text-primary bg-primary-soft", title: "12 simulation invitations sent", time: "Yesterday" },
+              ].map((n, i) => (
+                <button key={i} className="flex w-full items-start gap-3 px-4 py-2.5 text-left hover:bg-background">
+                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${n.color}`}>
+                    <n.icon className="h-4 w-4" />
+                  </span>
+                  <div className="flex-1 leading-tight">
+                    <div className="text-sm font-medium text-foreground">{n.title}</div>
+                    <div className="text-[11px] text-muted-foreground">{n.time}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <div className="border-t border-border px-4 py-2 text-center">
+              <button className="text-xs font-semibold text-primary hover:text-primary/80">View all notifications</button>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <div className="flex items-center gap-2 rounded-lg pl-2">
           <div className="text-right leading-tight">
             <div className="text-xs font-semibold">Linh Tran</div>

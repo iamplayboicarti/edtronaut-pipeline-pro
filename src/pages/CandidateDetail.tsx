@@ -1,7 +1,8 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Mail, Calendar, Clock, CheckCircle2, RotateCw, FileText, Image as ImageIcon, ArrowRight, Check, PauseCircle, X } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { candidates, stageBadgeClass } from "@/lib/data";
+import { toast } from "sonner";
 
 function ScoreDonut({ value }: { value: number }) {
   const r = 56;
@@ -86,7 +87,15 @@ function RadarChart({ points }: { points: RadarPoint[] }) {
 
 const CandidateDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const candidate = candidates.find((c) => c.id === id) ?? candidates[1]; // default Thu Huong
+
+  const decide = (verdict: "Advance" | "Hold" | "Reject") => {
+    if (verdict === "Advance") toast.success(`${candidate.name} advanced`, { description: "Moved to next stage. Candidate will be notified." });
+    else if (verdict === "Hold") toast(`${candidate.name} placed on hold`, { description: "Decision logged. Revisit when ready." });
+    else toast.error(`${candidate.name} rejected`, { description: "Rejection logged. Candidate will receive a courteous email." });
+    setTimeout(() => navigate("/"), 900);
+  };
 
   const radarPoints: RadarPoint[] = [
     { label: "Task Accuracy",   value: candidate.competencies.taskAccuracy,   benchmark: 75 },
@@ -255,13 +264,13 @@ const CandidateDetail = () => {
             <div className="rounded-lg border border-border bg-card p-6 shadow-card">
               <h3 className="text-h2">Decision</h3>
               <div className="mt-4 grid grid-cols-3 gap-2">
-                <button className="inline-flex h-11 items-center justify-center gap-1.5 rounded-md bg-success text-sm font-semibold text-success-foreground shadow-card transition-colors hover:bg-success/90">
+                <button onClick={() => decide("Advance")} className="inline-flex h-11 items-center justify-center gap-1.5 rounded-md bg-success text-sm font-semibold text-success-foreground shadow-card transition-colors hover:bg-success/90">
                   <Check className="h-4 w-4" /> Advance
                 </button>
-                <button className="inline-flex h-11 items-center justify-center gap-1.5 rounded-md border border-border bg-card text-sm font-semibold text-foreground transition-colors hover:bg-secondary">
+                <button onClick={() => decide("Hold")} className="inline-flex h-11 items-center justify-center gap-1.5 rounded-md border border-border bg-card text-sm font-semibold text-foreground transition-colors hover:bg-secondary">
                   <PauseCircle className="h-4 w-4" /> Hold
                 </button>
-                <button className="inline-flex h-11 items-center justify-center gap-1.5 rounded-md border border-danger/30 bg-card text-sm font-semibold text-danger transition-colors hover:bg-danger-soft">
+                <button onClick={() => decide("Reject")} className="inline-flex h-11 items-center justify-center gap-1.5 rounded-md border border-danger/30 bg-card text-sm font-semibold text-danger transition-colors hover:bg-danger-soft">
                   <X className="h-4 w-4" /> Reject
                 </button>
               </div>
