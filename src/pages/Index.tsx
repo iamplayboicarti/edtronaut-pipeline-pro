@@ -1,16 +1,31 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { AppShell } from "@/components/AppShell";
+import { ActionBanner } from "@/components/dashboard/ActionBanner";
+import { PipelineFunnel } from "@/components/dashboard/PipelineFunnel";
+import { AnalyticsTiles } from "@/components/dashboard/AnalyticsTiles";
+import { FilterBar } from "@/components/dashboard/FilterBar";
+import { CandidateTable } from "@/components/dashboard/CandidateTable";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <AppShell title="Recruitment Dashboard">
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-6 animate-fade-in">
+        <div className="flex items-end justify-between">
+          <div>
+            <h1 className="text-h1">Good morning, Linh</h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Here's what's moving across your hiring pipeline today — Tuesday, April 21
+            </p>
+          </div>
+        </div>
+
+        <ActionBanner />
+        <PipelineFunnel />
+        <AnalyticsTiles />
+        <FilterBar />
+        <CandidateTable />
+      </div>
+    </AppShell>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
